@@ -1,10 +1,30 @@
 package soldier_strategy
 
-import "fmt"
+import (
+	"fmt"
+	"sync"
+)
 
-type BasicSoldier struct {
+var once sync.Once
+
+type basicSoldier struct {
 }
 
-func (b BasicSoldier) Info() {
+func (b basicSoldier) Info() {
 	fmt.Println("I'm a basic Soldier")
+}
+
+var singleInstance *basicSoldier
+
+func GetConfig() *basicSoldier {
+	if singleInstance == nil {
+		once.Do(
+			func() {
+				fmt.Println("No instances created, creating one")
+				singleInstance = &basicSoldier{}
+			})
+	} else {
+		fmt.Println("Instance was already created, don't ruin singleton")
+	}
+	return singleInstance
 }
