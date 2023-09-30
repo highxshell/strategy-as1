@@ -16,7 +16,7 @@ func (b basicSoldier) Info() {
 
 var singleInstance *basicSoldier
 
-func GetConfig() *basicSoldier {
+func GetBasicSoldier() *basicSoldier {
 	if singleInstance == nil {
 		once.Do(
 			func() {
